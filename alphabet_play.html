@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Letters Ask to Begin the World — Play Packet</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Georgia, serif; background: #1a0f2e; color: #1a0f2e; }
+
+  /* NAV TABS */
+  .tab-bar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; gap: 0;
+    background: #2e1a4a;
+    border-bottom: 2px solid #c9922a;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: rgba(245,234,216,0.6);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .tab:hover { color: #e8b84b; }
+  .tab.active { color: #e8b84b; border-bottom-color: #e8b84b; }
+
+  /* PAGES */
+  .page { display: none; max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+  .page.active { display: block; }
+
+  /* PARCHMENT CARD */
+  .card {
+    background: #fdf6e8;
+    border: 1px solid #c9922a;
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .card-dark {
+    background: #1a0f2e;
+    border: 1px solid #c9922a;
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    color: #f5ead8;
+  }
+
+  h1 { font-size: 28px; color: #c9922a; margin-bottom: 6px; line-height: 1.2; }
+  h2 { font-size: 20px; color: #c9922a; margin-bottom: 12px; }
+  h3 { font-size: 16px; color: #8b1a1a; margin-bottom: 8px; margin-top: 16px; }
+  .card-dark h2 { color: #e8b84b; }
+  .card-dark h3 { color: #e8b84b; }
+
+  p { font-size: 15px; line-height: 1.7; margin-bottom: 10px; }
+  .card-dark p { color: #f5ead8; }
+
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { font-size: 14px; line-height: 1.65; margin-bottom: 4px; }
+  .card-dark li { color: #f5ead8; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-right: 6px;
+  }
+  .badge-gold { background: #c9922a; color: #fff; }
+  .badge-green { background: #3b6d11; color: #fff; }
+  .badge-red { background: #8b1a1a; color: #fff; }
+  .badge-blue { background: #2a4a7a; color: #fff; }
+  .badge-purple { background: #534ab7; color: #fff; }
+
+  /* SCRIPT STYLING */
+  .scene-header {
+    background: #2e1a4a;
+    color: #e8b84b;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 20px 0 12px;
+  }
+  .stage-dir {
+    color: #6b4c2a;
+    font-style: italic;
+    font-size: 13px;
+    margin: 8px 0;
+    padding-left: 16px;
+    border-left: 2px solid #c9922a;
+  }
+  .dialog-block { margin: 10px 0; }
+  .speaker {
+    font-weight: bold;
+    font-size: 13px;
+    color: #8b1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .line {
+    font-size: 15px;
+    line-height: 1.7;
+    padding-left: 16px;
+    margin-top: 2px;
+  }
+  .improv-note {
+    background: #fff8e6;
+    border: 1px dashed #c9922a;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #6b4c2a;
+    font-style: italic;
+    margin: 8px 0;
+  }
+  .verse-block {
+    background: #1a0f2e;
+    color: #e8b84b;
+    border-radius: 6px;
+    padding: 20px 28px;
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 2;
+    text-align: center;
+  }
+  .verse-block em { color: #f5ead8; font-style: normal; }
+
+  /* LETTER PETITION TABLE */
+  .petition-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .petition-table th {
+    background: #2e1a4a; color: #e8b84b;
+    padding: 8px 10px; text-align: left;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .petition-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e8d5b7;
+    vertical-align: top;
+  }
+  .petition-table tr:nth-child(even) td { background: #fdf0d5; }
+  .petition-table tr.chosen td { background: #e6f5d0; }
+  .petition-table tr.humble td { background: #e6e0f5; }
+  .heb { font-size: 18px; direction: rtl; }
+  .plus { color: #2a6630; font-weight: bold; }
+  .minus { color: #8b1a1a; font-weight: bold; }
+
+  /* PLACARD TEMPLATE */
+  .placard-demo {
+    width: 320px; height: 420px;
+    border: 4px solid #c9922a;
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto 16px;
+    position: relative;
+    font-family: Georgia, serif;
+  }
+  .placard-front { background: #fdf6e8; }
+  .placard-back { background: #f0e8d5; }
+  .placard-letter { font-size: 140px; line-height: 1; color: #c9922a; }
+  .placard-name { font-size: 28px; font-weight: bold; color: #2e1a4a; margin-top: -10px; }
+  .placard-means { font-size: 13px; color: #6b4c2a; font-style: italic; }
+  .placard-plea { font-size: 14px; line-height: 1.6; color: #1a0f2e; margin: 10px 0; font-style: italic; }
+  .placard-plus { font-size: 13px; color: #2a6630; margin: 4px 0; }
+  .placard-minus { font-size: 13px; color: #8b1a1a; margin: 4px 0; }
+  .placard-label {
+    position: absolute; top: 8px; left: 10px;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: #c9922a; font-weight: bold;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .role-card {
+    background: #fdf6e8;
+    border: 1px solid #c9922a;
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .role-card h3 { font-size: 14px; margin-top: 0; }
+  .role-card ul { margin: 0; }
+
+  .timeline { margin: 8px 0; }
+  .timeline-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .tl-dot {
+    width: 28px; height: 28px; min-width: 28px;
+    border-radius: 50%;
+    background: #c9922a;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: bold;
+    margin-top: 2px;
+  }
+  .tl-content { font-size: 14px; line-height: 1.6; }
+  .tl-title { font-weight: bold; font-size: 14px; }
+
+  .angel-badge {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 14px;
+    font-size: 13px; font-weight: bold;
+    margin: 4px;
+  }
+  .michael { background: #e6e0f5; color: #3c3489; }
+  .gabriel { background: #fff8e6; color: #854f0b; }
+  .raphael { background: #e6f5d0; color: #27500a; }
+  .uriel { background: #fce8e6; color: #a32d2d; }
+
+  .print-btn {
+    background: #c9922a; color: white; border: none;
+    padding: 10px 24px; border-radius: 6px;
+    font-family: Georgia, serif; font-size: 14px;
+    cursor: pointer; margin: 8px 4px;
+  }
+  .print-btn:hover { background: #a07020; }
+</style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="show('overview')">Overview</button>
+  <button class="tab" onclick="show('script')">Full Script</button>
+  <button class="tab" onclick="show('petitions')">All 22 Letters</button>
+  <button class="tab" onclick="show('placards')">Placard Guide</button>
+  <button class="tab" onclick="show('casting')">Casting & Roles</button>
+  <button class="tab" onclick="show('director')">Director Notes</button>
+  <button class="tab" onclick="show('sources')">Sources</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 1: OVERVIEW
+═══════════════════════════════════════════════ -->
+<div id="overview" class="page active">
+
+  <div class="card-dark">
+    <h1>The Letters Ask to Begin the World</h1>
+    <p style="color:#e8b84b; font-style:italic; font-size:16px;">A Living Midrash — Classroom Play for Graduation Day</p>
+    <p style="margin-top:12px;">Narrated by Abraham · Hosted by Four Archangels · Starring the 22 Letters of the Hebrew Alphabet</p>
+  </div>
+
+  <div class="card">
+    <h2>At a Glance</h2>
+    <div class="two-col">
+      <div>
+        <h3>Running time</h3>
+        <p>20–35 minutes (improv-dependent)</p>
+        <h3>Cast size</h3>
+        <p>12–30 children (grades 2–6) plus 4 teen angels and 1 adult narrator and one teacher acting in the role of the Shechina</p>
+        <h3>Rehearsals needed</h3>
+        <p>2 rehearsals minimum — this script is built to evolve between them</p>
+      </div>
+      <div>
+        <h3>Props needed</h3>
+        <ul>
+          <li>God's crown with 22 letters</li>
+          <li>22 two-sided placards (front: letter; back: plea + verdict)</li>
+          <li>4 angel sashes or wings (fabric/paper)</li>
+          <li>Abraham's staff and robe (optional)</li>
+          <li>Throne chair for Adonai (center stage)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Story in Brief</h2>
+    <p>Before creation, all 22 Hebrew letters lived on God's crown. When God was ready to make the world, each letter stepped forward and argued: <em>"Use me! Begin the world through me!"</em> God listened to each one — but every letter had a flaw. One by one they were turned away, until humble, generous <strong>Bet</strong> offered its argument last: <em>"Every day, all creatures bless You through me — Baruch!"</em> God chose Bet. And so the Torah begins: <strong>Bereshit</strong> — "In the beginning."</p>
+    <p>Then God rewarded the one letter who never asked — quiet, humble <strong>Alef</strong> — with the first word of the Ten Commandments: <em>Anochi</em> — "I am."</p>
+  </div>
+
+  <div class="card">
+    <h2>Structure of the Play</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-content"><span class="tl-title">Abraham's Opening Verse</span> — Narrator sets the scene in rhyming verse. Angels enter and take their positions.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-content"><span class="tl-title">The Letters Are Introduced</span> — Angels call forward the letter-children one group at a time.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-content"><span class="tl-title">The Petitions</span> — Each letter approaches God's throne, reads their plea, receives God's verdict. <em>Lots of room for comedy!</em></div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-content"><span class="tl-title">Bet Is Chosen</span> — The climax. Bet speaks; God rises; the world is created with light and noise.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-content"><span class="tl-title">Alef's Reward</span> — The twist. Alef never asked — so at Sinai, God gave Alef the greatest gift.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-content"><span class="tl-title">Abraham's Closing Verse</span> — The moral in rhyme. All actors take a bow.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 2: FULL SCRIPT
+═══════════════════════════════════════════════ -->
+<div id="script" class="page">
+
+  <div class="card-dark">
+    <h2>Full Script</h2>
+    <p style="font-size:13px; color:rgba(245,234,216,0.7);">
+      <span class="badge badge-red">STAGE DIR</span> directions in gold italics &nbsp;|&nbsp;
+      <span class="badge badge-blue">IMPROV</span> boxes show where to loosen the reins &nbsp;|&nbsp;
+      Dialogue is a <em>guide</em>, not a cage.
+    </p>
+  </div>
+
+  <!-- SOURCE NOTE -->
+  <div class="card" style="border-color:#2a4a7a; background:#f0f4fb;">
+    <h2 style="color:#2a4a7a; font-size:15px;">📚 Source Texts</h2>
+    <p style="font-size:13px; margin-bottom:5px;">This play is based on <strong>Legends of the Jews 1:1:8–11</strong> (Louis Ginzberg, trans. Henrietta Szold), available at <a href="https://www.sefaria.org/Legends_of_the_Jews.1.1.9" style="color:#2a4a7a;">sefaria.org/Legends_of_the_Jews.1.1.9</a>. The same story appears in <strong>Zohar I, 2b–3b</strong>; <strong>Bereishit Rabbah 1:10</strong>; <strong>Otiot de-Rabbi Akiva</strong>; and <strong>Yalkut Shimoni</strong>. The kabbalistic background draws on <strong>Sefer Yetzirah</strong> (Book of Formation, 3rd–6th c.) and the Hasidic teaching tradition.</p>
+  </div>
+
+  <!-- PRE-SHOW -->
+  <div class="scene-header">Before the Play Begins</div>
+  <div class="card">
+    <div class="stage-dir">All letter-children stand in a curved line or semicircle upstage, backs to audience or heads bowed, holding placards with the Hebrew letter facing forward. The teacher playing God/Adonai sits on the throne, wearing the crown. The four teen angels stand at the four corners of the space. Abraham (Cary) enters from the side or back of the room — walking through the audience if possible.</div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div class="scene-header">Scene 1 — Abraham's Opening Soliloquy (with Kabbalistic Background)</div>
+  <div class="card">
+    <div class="dialog-block">
+      <div class="speaker">Abraham (narrator)</div>
+      <div class="stage-dir">Walking slowly through the audience toward the stage, speaking as if sharing a secret he has carried for a very long time. Staff in hand. Warm, unhurried, slightly wondering — like a man who has seen the stars and still isn't quite over it.</div>
+      <div class="line">
+        <div class="verse-block">
+          Shalom, shalom — come, gather near,<br>
+          <em>Old Abraham has something you should hear.</em><br>
+          I've wandered far, from Ur to Canaan's shore,<br>
+          <em>But the oldest story — happened long before.</em><br><br>
+
+          Before the mountains lifted up their heads,<br>
+          <em>Before the ocean found its shores and beds,</em><br>
+          Before the sun first opened wide its eye —<br>
+          <em>Two thousand years before the earth and sky —</em><br><br>
+
+          Seven things were made, the sages say,<br>
+          <em>While God sat thinking in the formless grey:</em><br>
+          The Torah — written black fire on white fire,<br>
+          <em>God's Throne of Glory, soaring ever higher,</em><br>
+          And Paradise — placed gently on the right,<br>
+          <em>And Gehunah upon the left — a sobering sight.</em><br><br>
+
+          The Temple's blueprint hung before God's face,<br>
+          <em>A jewel on its altar — set in place —</em><br>
+          Engraved upon it: one name — the Moshiach                                                                                                                               's name!<br>
+          <em>And a Voice that cried: "Return!" before anyone came.</em><br><br>
+
+          <em style="font-size:13px; opacity:0.7;">[Source: Legends of the Jews 1:1:8, Sefaria]</em><br><br>
+
+          And God looked into Torah like a craftsman reads his plan,<br>
+          <em>And consulted her before creation began.</em><br>
+          Torah said: "A king without his court —<br>
+          <em>Is hardly worth the name, if truth be taught."</em><br><br>
+
+          Now — I learned something else, in all my years of seeking.<br>
+          <em>The ancient masters say — and this is worth repeating —</em><br>
+          The twenty-two letters were not merely ink on vellum,<br>
+          <em>Not ink on stone, nor painted on Jerusalem.</em><br><br>
+
+          They were the very bones and breath of making —<br>
+          <em>The blueprint God consulted in world-taking.</em><br>
+          The Sefer Yetzirah — Book of Formation — tells us plain:<br>
+          <em>"In thirty-two wondrous paths of wisdom" — hear the refrain —</em><br>
+          God carved and shaped and built this world entire<br>
+          <em>Through ten divine numbers — and letters made of fire.</em><br><br>
+
+          <em style="font-size:13px; opacity:0.7;">[Source: Sefer Yetzirah 1:1]</em><br><br>
+
+          The Zohar — that blazing book of light and mystery —<br>
+          <em>Tells us God played with the letters for all of pre-history.</em><br>
+          Two thousand years before creation's dawn,<br>
+          <em>God took those letters up and tried them on —</em><br>
+          Turned them this way, that way, held them to the light,<br>
+          <em>Learning every letter's glory — and every letter's night.</em><br><br>
+
+          <em style="font-size:13px; opacity:0.7;">[Source: Zohar I, 2b — "For two thousand years before the world, the Holy One contemplated them and played with them."]</em><br><br>
+
+          And then — on that great morning before all mornings —<br>
+          <em>With no sun to rise and give the usual warnings —</em><br>
+          The letters descended from God's crown, where they were graven<br>
+          <em>In flaming fire — from that august and terrible haven —</em><br>
+          And one by one they stepped before the Throne<br>
+          <em>And each one pleaded: "Lord — begin with me alone!"</em><br><br>
+
+          <em style="font-size:13px; opacity:0.7;">[Source: Legends of the Jews 1:1:9, Sefaria — "the twenty-two letters of the alphabet descended from the terrible and august crown of God whereon they were engraved with a pen of flaming fire."]</em><br><br>
+
+          Now — <em>[looks at the audience]</em> — I was not there, of course.<br>
+          <em>I came much later in the story's course.</em><br>
+          But I have sat beneath the stars, and I can tell you this:<br>
+          <em>The letters are still with us — not one is ever missed.</em><br>
+          Every alef, every bet, every shin and taw —<br>
+          <em>Still carry all the secrets that the Holy One once saw.</em><br><br>
+
+          So — are you ready? Shall we go back to the start?<br>
+          <em>To the moment before time — the beginning of God's heart?</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="improv-note">IMPROV NOTE for Abraham: You know this material cold — so you can step out of the verse at any moment and talk to the audience directly. "You know what two thousand years of playing with letters looks like? Well — look around you. Every Torah scroll, every prayer book, every mezuzah — that's God still playing." Then step back into verse. The verse is a frame; the teaching is the picture.</div>
+
+    <div class="improv-note">FOR YOUNGER CHILDREN IN THE AUDIENCE: After the verse, Abraham can briefly explain in plain English: "So here's what you need to know. Before God made the world — before anything existed — the Hebrew letters were already there. Engraved in fire on God's crown. And when God was ready to create everything, all twenty-two of them came forward and said: 'Me! Pick me!' Let's see what happened."</div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene-header">Scene 2 — The Angels Take Their Positions</div>
+  <div class="card">
+    <div class="dialog-block">
+      <div class="speaker">Abraham</div>
+      <div class="line">Now — before we begin — you should know who is running this heavenly court today. Allow me to introduce the four great angels surrounding the Throne of God!</div>
+    </div>
+
+    <div class="dialog-block">
+      <div class="stage-dir">Each angel steps forward dramatically when called, striking a pose.</div>
+      <div class="speaker">Abraham</div>
+      <div class="line">To the right of God — <strong>Michael</strong>, the Angel of Mercy!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Michael <span class="angel-badge michael">teen</span></div>
+      <div class="line"><em>[bows or strikes a noble pose]</em> I am Michael — I make sure every letter gets a fair hearing!</div>
+    </div>
+
+    <div class="dialog-block">
+      <div class="speaker">Abraham</div>
+      <div class="line">To the left — <strong>Gabriel</strong>, the Angel of Strength!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Gabriel <span class="angel-badge gabriel">teen</span></div>
+      <div class="line"><em>[flexes or stands tall]</em> I am Gabriel — I make sure nobody cuts in line or argues too long!</div>
+    </div>
+
+    <div class="dialog-block">
+      <div class="speaker">Abraham</div>
+      <div class="line">Before the Throne — <strong>Uriel</strong>, the Angel of Light and Wisdom!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Uriel <span class="angel-badge uriel">teen</span></div>
+      <div class="line"><em>[thoughtfully]</em> I am Uriel — I listen to each argument and help God think it through.</div>
+    </div>
+
+    <div class="dialog-block">
+      <div class="speaker">Abraham</div>
+      <div class="line">And behind the Throne — <strong>Raphael</strong>, the Angel of Healing!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Raphael <span class="angel-badge raphael">teen</span></div>
+      <div class="line"><em>[warmly]</em> I am Raphael — and when the rejected letters feel sad, I help them feel better. <em>[to audience]</em> There will be a lot of sad letters today. Be kind!</div>
+    </div>
+
+    <div class="improv-note">IMPROV NOTE: Angels can ham this up. Michael can "arm-wrestle" Gabriel in a friendly way. Raphael can pull out a toy bandage or notepad. Let the teens find their characters.</div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div class="scene-header">Scene 3 — The Court Opens</div>
+  <div class="card">
+    <div class="dialog-block">
+      <div class="speaker">Gabriel</div>
+      <div class="line"><em>[loudly, announcer-voice]</em> Hear ye, hear ye! The Heavenly Court of Creation is now — IN SESSION! Letters, you may begin! Who is first?</div>
+    </div>
+
+    <div class="dialog-block">
+      <div class="speaker">Michael</div>
+      <div class="line">The letters will approach from last to first — Tav begins! Tav, come forward!</div>
+    </div>
+
+    <div class="stage-dir">Tav steps forward from the group, marching dramatically toward the throne. The letter-children remaining in line can whisper, nudge each other, look nervous, give encouragement — as long as they're quiet during the petitions.</div>
+
+    <div class="improv-note">IMPROV NOTE: Encourage letter-children to react physically. When a letter gets rejected they can do a dramatic slump, a sad walk back, or ask Raphael for comfort. The audience will love it.</div>
+  </div>
+
+  <!-- SCENE 4: THE PETITIONS -->
+  <div class="scene-header">Scene 4 — The Petitions (Core of the Play)</div>
+  <div class="card">
+    <div class="stage-dir">Each letter approaches the throne. The letter-child holds the placard with the Hebrew letter facing the audience. They deliver their plea — either reading from the back of their placard or from memory. God listens, then responds. After each rejection, Gabriel or Michael sends the next letter forward. Rejected letters return to line looking sad; Raphael may comfort them.</div>
+
+    <p><strong>The Standard Petition Pattern</strong> — this repeats for each letter (with improv variations):</p>
+    <br>
+
+    <div class="dialog-block">
+      <div class="speaker">[Letter Name] — reading plea from placard</div>
+      <div class="line"><em>[speaks their plea aloud — full text on placard]</em></div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God (teacher)</div>
+      <div class="line"><em>[considers, then gently but clearly explains the problem]</em></div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">[Letter Name]</div>
+      <div class="line"><em>[reacts — sad, surprised, or dramatic — then walks back to line]</em></div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Gabriel / Michael</div>
+      <div class="line"><em>[announces the next letter]</em></div>
+    </div>
+    <br>
+
+    <p><strong>Sample Full Exchange — TAV:</strong></p>
+    <br>
+    <div class="dialog-block">
+      <div class="speaker">                                                                                                                                                                   Tav</div>
+      <div class="line"><em>[approaches confidently, holds up placard]</em> Almighty God! I should begin the world! Moses commanded the Jewish people the Torah — and the word Torah Begins with ME. תּ — Tav! What could be more fitting than beginning the world with the last letter of Torah?</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God</div>
+      <div class="line">Dear Tav — you are right that Torah ends with you. But you also end the word <em>mavet</em> — death. I cannot begin the world with the letter of death. Go back, dear Tav.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Tav</div>
+      <div class="line"><em>[dramatically]</em> Death! I begin... death? <em>[tragic slump, walks slowly back to line]</em></div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Raphael</div>
+      <div class="line"><em>[going over to Tav]</em> There, there. You're still a very important letter. Torah would be lost without you.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Gabriel</div>
+      <div class="line">SHIN — you're next! Come forward!</div>
+    </div>
+
+    <div class="improv-note">IMPROV NOTE: God's responses can grow with the energy of the room. If a child has a funny reaction, God can respond to it warmly. Michael and Gabriel can argue with each other quietly about whether a letter's case is good. Uriel can stroke their chin and look philosophical. The angels are the <em>keepers of the flow</em> — if a letter freezes up, an angel steps in to help them.</div>
+  </div>
+
+  <!-- SCENE 5: VAV AND HE -->
+  <div class="scene-header">Scene 4b — The Special Case of Vav and He</div>
+  <div class="card">
+    <div class="stage-dir">He and Vav are played by two children who come up together, holding hands or standing side by side.</div>
+    <div class="dialog-block">
+      <div class="speaker">He & Vav <em>(together)</em></div>
+      <div class="line"><em>[solemnly]</em> We... do not even need to make an argument. We spell God's most sacred Name. How could anything be more fitting?</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God</div>
+      <div class="line"><em>[very quietly, almost whispering]</em> Dear He and Vav... you are too holy. Too precious to be exposed in the rough-and-tumble of creation. I cannot begin the world with My most sacred Name — it would be like writing the name of the King on every doorstep. Go back — and I will protect you always.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">He & Vav</div>
+      <div class="line"><em>[quietly, with dignity]</em> We understand. <em>[return slowly, with their heads held high]</em></div>
+    </div>
+    <div class="improv-note">IMPROV NOTE: This moment can be tender and calm — a breath before the comedy resumes with the next letter.</div>
+  </div>
+
+  <!-- SCENE 6: ALEF STAYS BACK -->
+  <div class="scene-header">Scene 4c — Alef Watches and Waits</div>
+  <div class="card">
+    <div class="stage-dir">At some point early in the petitions, Abraham can gesture toward Alef at the back of the line.</div>
+    <div class="dialog-block">
+      <div class="speaker">Abraham <em>(to audience, aside)</em></div>
+      <div class="line">Do you notice something? <em>[points]</em> That letter there — Alef — the very first letter of the alphabet... isn't saying a word. While everyone else is pushing forward and making arguments, Alef is just... waiting. <em>[pause]</em> Remember that. Remember Alef. Because this story isn't over yet.</div>
+    </div>
+    <div class="improv-note">IMPROV NOTE: Alef can shrug, shake their head at the other letters' fussiness, or just stand quietly — the key is they NEVER approach the throne, even when angels try to call them. "No, no — I'm fine. You go ahead."</div>
+  </div>
+
+  <!-- SCENE 7: BET -->
+  <div class="scene-header">Scene 5 — Bet Steps Forward</div>
+  <div class="card">
+    <div class="stage-dir">By this point, all other letters have been rejected and returned to line. Only Bet and Alef remain. Gabriel calls for Bet.</div>
+    <div class="dialog-block">
+      <div class="speaker">Gabriel</div>
+      <div class="line">We are almost through the alphabet. BET — come forward!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Bet</div>
+      <div class="line"><em>[walks forward humbly but warmly, holds placard up]</em> Holy One, Blessed are You... <em>[pauses, smiles]</em> You see? I just said it! Every single day, in every blessing, people on earth open their mouths and they say: <em>Baruch</em> — Blessed! Blessed be the Lord! You are blessed through me every morning, every evening, every time someone eats or wakes or sees a rainbow. I am the letter of blessing. Let the world begin with a blessing!</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God</div>
+      <div class="line"><em>[rising slowly from the throne — the room goes quiet]</em> Bet. <em>[pause]</em> You are right. Every day, my children bless me through you. And it is right and fitting that the world should begin... <em>[looks at the crown, touches one of the letter charms]</em> ...with a blessing. <em>[places hand on Bet's head or shoulder]</em> It shall be BET. <em>Bereshit bara Elohim...</em> "In the beginning, God created."</div>
+    </div>
+
+    <div class="stage-dir">Everyone reacts — angels cheer (or bow solemnly), letter-children react with a mix of disappointment and celebration. Abraham raises his staff. If you have noise-makers, bells, or music — this is the moment!</div>
+
+    <div class="dialog-block">
+      <div class="speaker">All Angels <em>(together)</em></div>
+      <div class="line">BERESHIT! The world begins! Bereshit bara Elohim et hashamayim v'et ha'aretz! <em>[gesture grandly outward]</em></div>
+    </div>
+
+    <div class="improv-note">IMPROV NOTE: Letter-children can improvise their reactions. The ones near Bet can congratulate or hug Bet. Others can look around as if suddenly "inside" the world that just began — feel the new ground, look up at the new sky. Let it breathe for a moment.</div>
+  </div>
+
+  <!-- SCENE 8: ALEF'S REWARD -->
+  <div class="scene-header">Scene 6 — Alef's Reward</div>
+  <div class="card">
+    <div class="dialog-block">
+      <div class="speaker">Abraham <em>(to audience)</em></div>
+      <div class="line">But wait. Do you remember? <em>[points to Alef]</em> Alef never asked. Never pushed. Never said "pick me." And I told you — remember Alef.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God</div>
+      <div class="line"><em>[gently]</em> Alef — come here.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Alef</div>
+      <div class="line"><em>[surprised, points to self: "Me?"]</em> I... I didn't ask for anything, Holy One.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">God</div>
+      <div class="line">I know. That is exactly why. <em>[pauses]</em> When I gave the Ten Commandments at Mount Sinai — the most important words I ever spoke — I gave the very first word to you. <em>Anochi</em> — "I am the Lord your God." The first letter of the Ten Commandments is Alef. Because you were humble. Because you waited. Because you didn't need to push.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Alef</div>
+      <div class="line"><em>[moved, quietly]</em> I... thank you.</div>
+    </div>
+    <div class="dialog-block">
+      <div class="speaker">Michael <em>(to audience)</em></div>
+      <div class="line">You see? The one who waits quietly is not forgotten. <em>[beat]</em> God remembers everyone.</div>
+    </div>
+  </div>
+
+  <!-- SCENE 9: CLOSING VERSE -->
+  <div class="scene-header">Scene 7 — Abraham's Closing Soliloquy</div>
+  <div class="card">
+    <div class="stage-dir">All actors gather — letters, angels, God — arranged in a wide arc behind Abraham, who faces the audience alone. He turns slowly to look at them all, then back to the audience. This is the stillest moment of the play — warm but unhurried.</div>
+    <div class="dialog-block">
+      <div class="speaker">Abraham</div>
+      <div class="stage-dir">Speaks to the audience directly, quietly, as if thinking out loud — the verse builds from contemplative to celebratory by the end.</div>
+      <div class="verse-block">
+        And so the world began with Bet — with blessing —<br>
+        <em>Not with power, not with force, not with possessing,</em><br>
+        But with a letter that was already doing good,<br>
+        <em>Already saying "Baruch" — the way a good letter should.</em><br><br>
+
+        The Zohar says — and I believe it's true —<br>
+        <em>God played with all these letters the whole night through,</em><br>
+        Two thousand years before the first sunrise,<br>
+        <em>Turning each one over — learning all their highs and lows and cries.</em><br><br>
+
+        And the Sefer Yetzirah whispers in our ear:<br>
+        <em>The world was built from letters — do you hear?</em><br>
+        Not from stone, not gold, not iron or wood —<br>
+        <em>From alef, bet, gimel — the foundation of all good.</em><br><br>
+
+        Which means — and here's the part I want you to hold —<br>
+        <em>Every word you speak is older than old.</em><br>
+        When you say a blessing, when you open up a book,<br>
+        <em>You are handling the very tools God used — just look!</em><br><br>
+
+        And Alef — who said nothing, who stepped aside —<br>
+        <em>God saw. God remembered. God replied.</em><br>
+        At Sinai, when the lightning split the sky in two,<br>
+        <em>The first word God spoke began with quiet Alef — true.</em><br>
+        "Anochi — I am the Lord your God" — the voice rang clear<br>
+        <em>Through fire, through cloud, through every listening ear.</em><br><br>
+
+        So here's what this old wanderer wants to say<br>
+        <em>To every letter-child and parent here today:</em><br>
+        The world was not begun because someone pushed the most,<br>
+        <em>Or argued the best case, or made the greatest boast.</em><br><br>
+
+        It began because one letter, every single day,<br>
+        <em>Was already turning toward the Holy One to say:</em><br>
+        "Baruch — You are blessed —" in each rising and each rest.<br>
+        <em>And one small letter knew that waiting was the best.</em><br><br>
+
+        The letters live in Torah, in every prayer you know,<br>
+        <em>In every mezuzah scroll, in every candle's glow.</em><br>
+        They are the bones of blessing — the alphabet of love —<br>
+        <em>Descended from that terrible, august, and glowing crown above.</em><br><br>
+
+        These children here have learned them —<br>
+        <em>Every curve and crown and flame.</em><br>
+        And now the world — <em>[gestures wide]</em> — is just a little more complete.<br>
+        <em>Because they know each letter's glory, and each letter's name.</em><br><br>
+
+        Mazal tov — and Bereshit —<br>
+        <em>In the beginning — and it's not over yet.</em>
+      </div>
+    </div>
+    <div class="stage-dir">Abraham raises his staff. All actors step forward for their bow — letter-children holding placards up toward the audience. Angels take a grand bow together. God/Adonai stands and gestures toward all the letter-children in blessing. Applause!</div>
+    <div class="improv-note">NOTE: The final line "Bereshit — and it's not over yet" is deliberately open. If the room is responsive, Abraham can pause before the very last word and let the audience say "yet" with him. If he's done it right, they will.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 3: ALL 22 PETITIONS
+═══════════════════════════════════════════════ -->
+<div id="petitions" class="page">
+
+  <div class="card-dark">
+    <h2>All 22 Letter Petitions</h2>
+    <p style="font-size:13px;">Full plea and verdict for every letter. This is the source text for placard backs and each child's role. Letters appear in reverse order (Taw → Alef) as they approach God.</p>
+  </div>
+
+  <div class="card" style="padding: 12px;">
+    <table class="petition-table">
+      <thead>
+        <tr>
+          <th>Letter</th>
+          <th>Hebrew</th>
+          <th>The Plea</th>
+          <th>God's Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tav (ת)</strong></td>
+          <td class="heb">ת</td>
+          <td>"Torah ends with me — תּוֹרָה! What better way to begin the world than with the First letter of the greatest gift?"</td>
+          <td><span class="minus">✗</span> You also end <em>mavet</em> — death. I cannot open creation with the letter of death.</td>
+        </tr>
+        <tr>
+          <td><strong>Shin (ש)</strong></td>
+          <td class="heb">ש</td>
+          <td>"My Lord — <em>Shaddai</em> — one of Your own great names — begins with me! Shin!"</td>
+          <td><span class="minus">✗</span> You also begin <em>sheker</em> — falsehood. The world needs truth at its foundation.</td>
+        </tr>
+        <tr>
+          <td><strong>Resh (ר)</strong></td>
+          <td class="heb">ר</td>
+          <td>"I begin <em>Rahum</em> — the Merciful One — Your very own name of compassion!"</td>
+          <td><span class="minus">✗</span> You begin <em>ra'</em> — wickedness, and <em>rasha'</em> — evil. Too dangerous.</td>
+        </tr>
+        <tr>
+          <td><strong>Kuf (ק)</strong></td>
+          <td class="heb">ק</td>
+          <td>"I begin <em>Kadosh</em> — Holy! Are You not the Holy One of Israel? Begin with holiness!"</td>
+          <td><span class="minus">✗</span> You begin <em>kelalah</em> — a curse. Holiness and curse cannot both begin the world.</td>
+        </tr>
+        <tr>
+          <td><strong>Tzade (צ)</strong></td>
+          <td class="heb">צ</td>
+          <td>"I begin <em>Tzaddik</em> — the Righteous One — what You are called! Begin with righteousness!"</td>
+          <td><span class="minus">✗</span> You begin <em>tzarot</em> — troubles and suffering. I want the world to begin in joy.</td>
+        </tr>
+        <tr>
+          <td><strong>Pe (פ)</strong></td>
+          <td class="heb">פ</td>
+          <td>"I begin <em>Podeh</em> — the Redeemer! You are the One who saves — let me begin the world You will one day redeem!"</td>
+          <td><span class="minus">✗</span> You begin <em>pesha'</em> — sin and transgression. Redemption cannot precede creation.</td>
+        </tr>
+        <tr>
+          <td><strong>Ayin (ע)</strong></td>
+          <td class="heb">ע</td>
+          <td>"I begin <em>anavah</em> — humility! What virtue is greater than humility? Begin creation humbly!"</td>
+          <td><span class="minus">✗</span> You begin <em>ervah</em> — immodesty and disgrace. The opposites cancel each other.</td>
+        </tr>
+        <tr>
+          <td><strong>Samech (ס)</strong></td>
+          <td class="heb">ס</td>
+          <td>"You Yourself are called the <em>Somech noflim</em> — the One who upholds those who fall! I am the Upholder!"</td>
+          <td><span class="minus">✗</span> You are needed exactly where you are — inside the alphabet, upholding the other letters. Stay!</td>
+        </tr>
+        <tr>
+          <td><strong>Nun (נ)</strong></td>
+          <td class="heb">נ</td>
+          <td>"I begin <em>Ner Adonai nishmat adam</em> — the lamp of God is the human soul! Let the world begin with the soul!"</td>
+          <td><span class="minus">✗</span> That same verse continues: "the lamp of the wicked will be snuffed out." Too dangerous.</td>
+        </tr>
+        <tr>
+          <td><strong>Mem (מ)</strong></td>
+          <td class="heb">מ</td>
+          <td>"I begin <em>Melech</em> — King! You are the King of Kings! Surely the world should begin with the letter of the King!"</td>
+          <td><span class="minus">✗</span> You also begin <em>mechumah</em> — confusion and chaos. A king's world cannot start in confusion.</td>
+        </tr>
+        <tr>
+          <td><strong>Lamed (ל)</strong></td>
+          <td class="heb">ל</td>
+          <td>"I begin <em>Luchot</em> — the Tablets of the Ten Commandments — Your greatest gift to Israel!"</td>
+          <td><span class="minus">✗</span> Moses shattered those very tablets. What begins with breaking cannot begin creation.</td>
+        </tr>
+        <tr>
+          <td><strong>Kaf (כ)</strong></td>
+          <td class="heb">כ</td>
+          <td>"Throne — <em>Kisseh</em>! Glory — <em>Kavod</em>! Crown — <em>Keter</em>! Three of Your greatest attributes, all beginning with Kaf! Three reasons I should be chosen!"</td>
+          <td><span class="minus">✗</span> I will one day clap My hands in grief over Israel's suffering — and clapping is Kaf. I cannot start creation with future grief.</td>
+        </tr>
+        <tr>
+          <td><strong>Yud (י)</strong></td>
+          <td class="heb">י</td>
+          <td>"I begin <em>Yah</em> — one of Your most sacred names! The shortest, purest name of God!"</td>
+          <td><span class="minus">✗</span> You begin <em>Yetzer ha-ra</em> — the evil inclination in every heart. I cannot begin with the seed of wrongdoing.</td>
+        </tr>
+        <tr>
+          <td><strong>Tet (ט)</strong></td>
+          <td class="heb">ט</td>
+          <td>"I am the letter of <em>Tov</em> — goodness! On the third day of creation You said 'it is good' — twice! That double goodness is mine!"</td>
+          <td><span class="minus">✗</span> True goodness belongs to the World to Come, not to this world. That day hasn't come yet. Wait.</td>
+        </tr>
+        <tr>
+          <td><strong>Het (ח)</strong></td>
+          <td class="heb">ח</td>
+          <td>"I begin <em>Chanun</em> — the Gracious One! You are gracious to all Your creatures — let that grace be the first word!"</td>
+          <td><span class="minus">✗</span> You begin <em>chattat</em> — sin. Grace and sin cannot share the same letter at creation's dawn.</td>
+        </tr>
+        <tr>
+          <td><strong>Zayin (ז)</strong></td>
+          <td class="heb">ז</td>
+          <td>"I begin <em>zakor</em> — remembrance! To remember is one of the most important things in Torah!"</td>
+          <td><span class="minus">✗</span> Zayin means a weapon — a sword. I will not begin creation with an instrument of harm.</td>
+        </tr>
+        <tr>
+          <td><strong>Vav & He (ו ה)</strong></td>
+          <td class="heb">ו ה</td>
+          <td><em>[together, solemnly]</em> "We spell the most sacred, unspoken Name of God. How could anything be more fitting?"</td>
+          <td><span class="minus">✗</span> You are too holy to be used for ordinary creation. I will protect your Name always — but step aside.</td>
+        </tr>
+        <tr>
+          <td><strong>Dalet (ד)</strong></td>
+          <td class="heb">ד</td>
+          <td>"I begin <em>Davar</em> — the Divine Word itself! The world was created through speech — and I begin the very idea of God's Word!"</td>
+          <td><span class="minus">✗</span> You begin <em>din</em> — strict judgment. Without mercy, judgment destroys rather than creates.</td>
+        </tr>
+        <tr>
+          <td><strong>Gimel (ג)</strong></td>
+          <td class="heb">ג</td>
+          <td>"I begin <em>Gadol</em> — Great! You are the Great God — <em>El Gadol</em>! Begin the world with greatness!"</td>
+          <td><span class="minus">✗</span> You begin <em>gemul</em> — retribution. Punishment cannot be the seed of creation.</td>
+        </tr>
+        <tr class="chosen">
+          <td><strong>Bet (ב) ✨ CHOSEN</strong></td>
+          <td class="heb">ב</td>
+          <td>"Holy One — every day, all Your creatures bless You through me. They open their mouths and say: <em>Baruch</em> — Blessed! Every blessing in every language begins with me. Let the world begin with blessing!"</td>
+          <td><span class="plus">✓ CHOSEN</span> You are right, Bet. Every day is wrapped in blessing through you. <em>Bereshit</em> — "In the beginning" — begins with Bet. The world begins NOW.</td>
+        </tr>
+        <tr class="humble">
+          <td><strong>Alef (א) 👑 HONORED</strong></td>
+          <td class="heb">א</td>
+          <td><em>[Never asked. Never stepped forward. Waited quietly.]</em></td>
+          <td><span class="plus">✓ HONORED</span> Because you were humble, I give you the greatest honor: the first word of the Ten Commandments. <em>Anochi</em> — "I am the Lord your God."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 4: PLACARD GUIDE
+═══════════════════════════════════════════════ -->
+<div id="placards" class="page">
+
+  <div class="card-dark">
+    <h2>Placard Design Guide</h2>
+    <p>Each child holds a two-sided placard. Front: large letter facing the audience. Back: the plea they read aloud, plus God's + and − notes for the teacher.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Placard Front (faces audience)</h3>
+      </div>
+      <div class="placard-demo placard-front">
+        <div class="placard-label">FRONT — FACES AUDIENCE</div>
+        <div class="placard-letter">ת</div>
+        <div class="placard-name">TAV</div>
+        <div class="placard-means">22nd letter</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Placard Back (child reads from)</h3>
+      </div>
+      <div class="placard-demo placard-back">
+        <div class="placard-label">BACK — CHILD READS FROM THIS</div>
+        <div class="placard-letter" style="font-size:60px;">ת</div>
+        <div class="placard-name" style="font-size:20px;">TAV</div>
+        <div class="placard-plea">"Torah begins with me! What better way to begin the world than with the last letter of the greatest gift?"</div>
+        <div class="placard-plus">✦ GOOD: Torah begins with Tav</div>
+        <div class="placard-minus">✗ PROBLEM: Also Tav ends mavet — death</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Making the Placards</h2>
+    <h3>Materials</h3>
+    <ul>
+      <li>Cardstock (11×14" or larger — kids need to hold them comfortably)(or you can use a paper plate)</li>
+      <li>Print or hand-letter the Hebrew letter large on one side (fill the card!)</li>
+      <li>On the back: letter name in English, then the plea in a readable font (18pt+), then ✦ and ✗ notes</li>
+      <li>Optional: laminate for durability, add a ribbon or string for neck-carrying</li>
+      <li>Optional: color-code by group (gold for the letter face, matching ribbon)</li>
+    </ul>
+    <h3>Tips</h3>
+    <ul>
+      <li>Make the Hebrew letter on the front as large as possible — parents in the back need to see it</li>
+      <li>Use a clear, simple Hebrew font — Frank Rühl or David are ideal for printing</li>
+      <li>Print the plea text large enough that children can read it without squinting in low stage lighting</li>
+      <li>Number the placards in the order children approach (Taw=1, Shin=2, etc.) to help the angels keep order</li>
+    </ul>
+    <h3>When Multiple Kids Share a Letter</h3>
+    <p>If you have fewer than 22 children, some placards can be combined — e.g., one child holds both Zayin and Ayin, delivering both pleas in a row. The child simply flips between two cards or holds one in each hand.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 5: CASTING & ROLES
+═══════════════════════════════════════════════ -->
+<div id="casting" class="page">
+
+  <div class="card-dark">
+    <h2>Casting & Role Descriptions</h2>
+  </div>
+
+  <!-- CASTING GRIDS -->
+  <div class="card">
+    <h2>Casting by Group Size</h2>
+    <div class="two-col">
+      <div>
+        <h3>Small Class (12–16 children)</h3>
+        <ul>
+          <li>Each child takes 1–2 letters</li>
+          <li>Angel roles go to the most confident speakers</li>
+          <li>Bet and Alef should be individual roles — most important parts</li>
+          <li>Group less-prominent letters (Zayin + Ayin, Dalet + Gimel, etc.)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Large Class (22–30 children)</h3>
+        <ul>
+          <li>One child per letter — easy!</li>
+          <li>Remaining children become the "Chorus of Creation" — they react and add sound effects</li>
+          <li>Or assign 2 kids to the same letter who deliver the plea together</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Role Descriptions</h2>
+    <div class="two-col">
+      <div class="role-card">
+        <h3>Abraham (Cary — Narrator)</h3>
+        <ul>
+          <li>Frames the story for the audience — warm, storytelling voice</li>
+          <li>Delivers opening and closing soliloquy in verse</li>
+          <li>Interjects between scenes with commentary and humor</li>
+          <li>Can slow or speed the play as needed</li>
+          <li>The improvisation anchor — controls the pace of the whole play</li>
+        </ul>
+      </div>
+      <div class="role-card" style="border: 2px solid #c9922a; background: #fffbf0;">
+        <h3 style="color:#8b1a1a;">Adonai — The Holy One, Blessed Be He <span style="font-size:11px; background:#c9922a; color:white; padding:2px 7px; border-radius:10px; font-style:normal; font-weight:bold;">TEACHER ROLE</span></h3>
+        <p style="font-size:13px; font-style:italic; color:#6b4c2a; margin-bottom:8px;">This is the most demanding adult role in the play — and the most powerful one. Cast thoughtfully.</p>
+        <ul>
+          <li><strong>Presence:</strong> Seated on the throne for nearly the entire play — still, attentive, unhurried. The stillness itself communicates divine authority. God does not fidget.</li>
+          <li><strong>The crown:</strong> Wears the crown with 22 letter charms from the moment the play opens. The crown is the visual anchor of the whole production — it should be seen from the back of the room.</li>
+          <li><strong>Listening:</strong> Each letter's petition deserves a moment of genuine consideration before the response — a visible pause, a slight tilt of the head. God has heard this argument before (two thousand years before, in fact) and is patient, not dismissive.</li>
+          <li><strong>Tone:</strong> Warm and loving — never cold or punitive. Each rejection is a "no, dear one" not a scolding. Think: a wise grandparent who sees the whole picture and gently turns aside what cannot work.</li>
+          <li><strong>Humor:</strong> God may smile. A quiet "hmm..." before a difficult rejection, a slight wince when Kaf mentions the hands-clapping-in-grief prophecy. The audience will love seeing God react humanly.</li>
+          <li><strong>The Rising:</strong> God rises from the throne <em>only once</em> — when choosing Bet. This is the climax of the entire play. The moment God stands, everything stops. Practice this beat carefully in rehearsal — it needs to land in complete silence before the celebration begins.</li>
+          <li><strong>Alef's moment:</strong> When God calls Alef forward at the end, the tone shifts entirely — this is tender, private, almost a whisper. God places a hand on Alef's head or shoulder if the child is comfortable with that.</li>
+          <li><strong>Improvisation:</strong> God can respond to unexpected things the letter-children say. If a child adds something funny or sweet, God can react genuinely — a soft laugh, a nod of acknowledgment. "That is a good point, little Mem. But still — no."</li>
+        </ul>
+        <p style="font-size:13px; margin-top:10px; color:#2e1a4a;"><strong>Costuming suggestions:</strong> A white or cream robe, tallit, or academic gown works well. The crown is the essential prop — everything else serves it. Avoid anything too elaborate that competes with the crown visually.</p>
+        <p style="font-size:13px; color:#8b1a1a;"><strong>A note on theology:</strong> Some teachers may feel hesitant portraying God directly. One approach: frame the role as portraying the <em>Shekhinah</em> — the divine presence — rather than God per se, which has precedent in midrashic literature. Another: the teacher plays the heavenly "voice" of God, seated on the throne but not making eye contact directly — as if speaking from a slightly removed place. Let the teacher find their own comfort level.</p>
+      </div>
+      <div class="role-card">
+        <h3 class="michael" style="color:#534ab7">Michael (teen angel)</h3>
+        <ul>
+          <li>Calls each letter forward by name</li>
+          <li>Keeps the line orderly — "who's next?"</li>
+          <li>Can add commentary: "That was a good argument... too bad!"</li>
+          <li>Role of: The Fair Judge / Announcer</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3 class="gabriel" style="color:#854f0b">Gabriel (teen angel)</h3>
+        <ul>
+          <li>Enforces order with humor — "No cutting in line!"</li>
+          <li>Makes sure letters stay in reverse alphabetical order</li>
+          <li>Can be the "crowd control" comic character</li>
+          <li>Role of: The Energetic Enforcer</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3 class="uriel" style="color:#a32d2d">Uriel (teen angel)</h3>
+        <ul>
+          <li>The thoughtful one — strokes chin, looks wise</li>
+          <li>Can whisper advice to God, or share philosophical asides with the audience</li>
+          <li>Helps God articulate the rejection reasons if God hesitates</li>
+          <li>Role of: The Wise Counselor</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <h3 class="raphael" style="color:#27500a">Raphael (teen angel)</h3>
+        <ul>
+          <li>Comforts rejected letters — the warm, funny role</li>
+          <li>Can bring a prop "comfort bag" (bandages, candy, etc.)</li>
+          <li>Announces the moral lesson to the audience</li>
+          <li>Role of: The Healer / Comic Relief</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Letters — Key Roles to Cast Carefully</h2>
+    <table class="petition-table">
+      <thead><tr><th>Letter</th><th>Why It's Special</th><th>Best Cast As</th></tr></thead>
+      <tbody>
+        <tr class="chosen"><td>Bet (ב)</td><td>The chosen letter — most lines, most important scene</td><td>Confident, warm speaker — a natural leader</td></tr>
+        <tr class="humble"><td>Alef (א)</td><td>No lines until the reward scene — must convey humility through body language throughout</td><td>An expressive, patient child; can be a shy child who shines in the quiet moment</td></tr>
+        <tr><td>Taw (ת)</td><td>Goes first — sets the tone and energy</td><td>Dramatic, funny — gets the comedy rolling</td></tr>
+        <tr><td>He & Vav (ה ו)</td><td>The tender, sacred moment — tone shifts</td><td>Two children who can be quiet and sincere together</td></tr>
+        <tr><td>Mem (מ)</td><td>"King!" — fun to announce royally</td><td>Child who enjoys performing grandly</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 6: DIRECTOR NOTES
+═══════════════════════════════════════════════ -->
+<div id="director" class="page">
+
+  <div class="card-dark">
+    <h2>Director's Notes for Abraham</h2>
+    <p style="font-size:13px; color:rgba(245,234,216,0.7);">Practical guidance for rehearsals, improvisation management, and the graduation performance itself.</p>
+  </div>
+
+  <div class="card">
+    <h2>Rehearsal Plan</h2>
+    <h3>Rehearsal 1 — Blocking & Discovery</h3>
+    <ul>
+      <li>Walk through the full play once — no pressure on memorization</li>
+      <li>Focus on: physical positions (where is the throne? where do letters wait?), the order of letters, and how angels call people forward</li>
+      <li>Let the improv happen naturally — notice which kids are natural comics, which are shy</li>
+      <li>Have every child say their plea once, even roughly — the words become their own</li>
+      <li>Record what worked; make note of what needs rewriting (use the "Rewrite Flags" below)</li>
+    </ul>
+    <h3>Between Rehearsals — Rewrite Opportunities</h3>
+    <ul>
+      <li>Simplify any pleas that tripped children up</li>
+      <li>Add lines for children who were natural improvisers</li>
+      <li>Adjust angel roles if the teens found their characters</li>
+      <li>Consider adding sound effects (a bell when a letter is rejected? music when Bet is chosen?)</li>
+    </ul>
+    <h3>Rehearsal 2 — Polish & Confidence</h3>
+    <ul>
+      <li>Run the play with more energy — this time for performance</li>
+      <li>Practice the Bet moment and the final bow carefully — these are the most important beats</li>
+      <li>Run Abraham's opening verse at full storytelling volume and warmth</li>
+      <li>Brief the angels on their "emergency" improv moves (see below)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Improv Management — Keeping the Play Moving</h2>
+    <p>The angels are your secret weapon. Brief the teens on these moves:</p>
+    <h3>If a letter freezes or forgets their plea:</h3>
+    <p>Raphael walks over and whispers: <em>"You were going to tell God about [topic]..."</em> — or just reads the first line from the placard loudly as a prompt.</p>
+    <h3>If a letter runs too long:</h3>
+    <p>Gabriel claps twice and says: <em>"God is a very busy God — let's keep it moving!"</em></p>
+    <h3>If the audience gets too loud:</h3>
+    <p>Abraham raises his staff and says to the audience: <em>"Even before the world existed, people couldn't stay quiet during important moments. Some things never change."</em></p>
+    <h3>If something goes wonderfully wrong:</h3>
+    <p>Go with it! Abraham can narrate over unexpected moments: <em>"And so it was in the heavenly court — even the angels didn't always know what would happen next."</em></p>
+    <h3>The "energy drift" fix:</h3>
+    <p>If the middle section (letters 8–15) loses energy, Abraham steps in with a brief aside to the audience: <em>"Now — quick poll — who thinks God is going to choose THIS letter?"</em> — get the audience voting, then let the next letter strut forward.</p>
+  </div>
+
+  <div class="card">
+    <h2>The Crown Prop</h2>
+    <p>This is the most important visual. The crown should have 22 letter charms or medallions — one for each Hebrew letter. Options:</p>
+    <ul>
+      <li><strong>Simple:</strong> A paper or foam crown with Hebrew letters written in gold marker</li>
+      <li><strong>Medium:</strong> Felt or cardboard crown with laminated letter cards attached with small clips</li>
+      <li><strong>Elaborate:</strong> Fabric crown with embroidered or printed Hebrew letters</li>
+    </ul>
+    <p>As each letter is petitioned and rejected, God can optionally touch that letter on the crown — a small, beautiful gesture. When Bet is chosen, God can touch the ב on the crown and then gesture outward: "Let the world begin."</p>
+  </div>
+
+  <div class="card">
+    <h2>The Performance Day Checklist</h2>
+    <ul>
+      <li>☐ All 22 placards printed, assembled, and numbered on back</li>
+      <li>☐ Crown assembled and on the throne before parents arrive</li>
+      <li>☐ Angel sashes or wings distributed to teens</li>
+      <li>☐ Abraham's staff and robe (if using) ready backstage</li>
+      <li>☐ Throne chair in position (center-forward is ideal)</li>
+      <li>☐ Brief the parent/grandparent audience: "This is a living midrash — enjoy the improv!"</li>
+      <li>☐ Optional: program handout with letter names and meanings for the audience</li>
+      <li>☐ Optional: music cue ready for the "world is created" moment</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>A Note on the Moral</h2>
+    <p>The play carries two clear moral lessons that children in grades 2–6 can take home:</p>
+    <ol>
+      <li style="margin-bottom:8px;"><strong>What you are used for matters.</strong> Every letter had something beautiful about it — but every letter also had a shadow. The world needed a letter that was already doing good, every day, for everyone.</li>
+      <li style="margin-bottom:8px;"><strong>Humility is rewarded.</strong> Alef teaches that not pushing forward, not demanding recognition, can lead to the greatest honor of all. This lands especially well with the graduation-day context — a lesson as the children move to the next stage of their learning.</li>
+    </ol>
+    <p>Consider whether you want to draw these out briefly for parents after the curtain call — a 2-minute "debrief" from Abraham could beautifully close the day.</p>
+  </div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 7: SOURCES
+═══════════════════════════════════════════════ -->
+<div id="sources" class="page">
+
+  <div class="card-dark">
+    <h2>Source Texts & Kabbalistic Background</h2>
+    <p style="font-size:13px; color:rgba(245,234,216,0.7);">The primary source texts for this play, with Sefaria links and kabbalistic context for teacher enrichment.</p>
+  </div>
+
+  <div class="card">
+    <h2>Primary Source — Legends of the Jews 1:1:8–11</h2>
+    <p><strong>Author:</strong> Rabbi Louis Ginzberg (1873–1953) · <strong>Trans:</strong> Henrietta Szold</p>
+    <p><strong>Sefaria:</strong> <a href="https://www.sefaria.org/Legends_of_the_Jews.1.1.9" style="color:#2a4a7a;">sefaria.org/Legends_of_the_Jews.1.1.9</a></p>
+    <p>The <em>Legends of the Jews</em> is not itself an ancient text — it is Ginzberg's early 20th-century synthesis of thousands of midrashim from across rabbinic literature, woven into a single continuous narrative. The alphabet story in 1:1:9 is Ginzberg's retelling of material found in several ancient sources (see below). His version is the most accessible and complete single telling, and is ideal for educational use.</p>
+    <div class="stage-dir" style="margin-top:10px;">Key passage (1:1:9): "When God was about to create the world by His word, the twenty-two letters of the alphabet descended from the terrible and august crown of God whereon they were engraved with a pen of flaming fire. They stood round about God, and one after the other spake and entreated, 'Create the world through me!'"</div>
+    <div class="stage-dir" style="margin-top:8px;">On Bet's selection (1:1:9): "O Lord of the world! May it be Thy will to create Thy world through me, seeing that all the dwellers in the world give praise daily unto Thee through me, as it is said, 'Blessed be the Lord forever. Amen, and Amen.'"</div>
+    <div class="stage-dir" style="margin-top:8px;">On Alef's reward (1:1:11): "The only letter that had refrained from urging its claims was the modest Alef, and God rewarded it later for its humility by giving it the first place in the Decalogue."</div>
+  </div>
+
+  <div class="card">
+    <h2>Ancient Parallel — Zohar I, 2b–3b</h2>
+    <p><strong>Attributed to:</strong> Rabbi Shimon bar Yochai (2nd c. CE) · <strong>Published:</strong> Spain, c. 1285, by Rabbi Moshe de Leon</p>
+    <p><strong>Sefaria:</strong> <a href="https://www.sefaria.org/Zohar.1.2b" style="color:#2a4a7a;">sefaria.org/Zohar.1.2b</a></p>
+    <p>The Zohar opens — literally on its first pages — with an extended version of the alphabet petition story. This is one of the Zohar's most significant choices: before all its mystical teaching, before the sefirot or the Shekhinah, before any discourse on Torah, it tells the story of the letters. The Zohar's version differs from Ginzberg's in several details and adds kabbalistic interpretation to each letter's case.</p>
+    <div class="stage-dir" style="margin-top:10px;">The Zohar's frame (I, 2b): "For two thousand years before creating the world, the blessed Holy One contemplated them and played with them." — This is the source for Abraham's soliloquy reference to God "playing with the letters."</div>
+    <div class="stage-dir" style="margin-top:8px;">On Bet (I, 3a): The Zohar connects Bet's selection to <em>Beracha</em> (blessing) and to the kabbalistic concept of a "corrected connection" between Malchut (creation) and Bina (divine understanding). Bet is dual — open on one side — which the Zohar reads as the vessel of both giving and receiving.</div>
+    <div class="stage-dir" style="margin-top:8px;">On Alef (I, 3b): "God said: 'Alef, Alef — even though I will create the universe with Bet, you shall be the head of all the letters, for you represent My oneness...'"</div>
+  </div>
+
+  <div class="card">
+    <h2>Ancient Parallel — Bereishit Rabbah 1:10</h2>
+    <p><strong>Period:</strong> Palestinian Midrash, c. 400–500 CE</p>
+    <p><strong>Sefaria:</strong> <a href="https://www.sefaria.org/Bereishit_Rabbah.1.10" style="color:#2a4a7a;">sefaria.org/Bereishit_Rabbah.1.10</a></p>
+    <p>One of the oldest sources for the alphabet petition story. The midrash asks: why does the Torah begin with Bet and not Alef? The answer given is that Bet begins <em>Berachah</em> — blessing. It also contains the teaching that Torah itself served as God's blueprint for creation: <em>"God looked into the Torah and created the world."</em> This is the verse that grounds Abraham's soliloquy.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ancient Parallel — Otiot de-Rabbi Akiva</h2>
+    <p><strong>Period:</strong> Late Talmudic / early medieval, attributed to Rabbi Akiva</p>
+    <p><strong>Sefaria:</strong> <a href="https://www.sefaria.org/Otiot_DeRabbi_Akiva" style="color:#2a4a7a;">sefaria.org/Otiot_DeRabbi_Akiva</a></p>
+    <p>This is arguably the <em>fullest</em> ancient version of the alphabet petition story, presenting each letter's argument and God's response in detail. Each letter also receives an extended meditation on its mystical significance. The text is attributed to Rabbi Akiva ben Joseph — the great Talmudic sage and mystic — though modern scholars date its written form to the early medieval period. It is the direct source Ginzberg drew on most heavily for his <em>Legends of the Jews</em> retelling.</p>
+  </div>
+
+  <div class="card">
+    <h2>Kabbalistic Background — Sefer Yetzirah (Book of Formation)</h2>
+    <p><strong>Period:</strong> 3rd–6th century CE · <strong>Attributed to:</strong> The patriarch Abraham; also R. Akiva</p>
+    <p><strong>Sefaria:</strong> <a href="https://www.sefaria.org/Sefer_Yetzirah" style="color:#2a4a7a;">sefaria.org/Sefer_Yetzirah</a></p>
+    <p>The oldest Jewish mystical text — possibly the most influential book in Jewish thought after the Torah and Talmud. Its central teaching: God created the world through <em>"thirty-two wondrous paths of wisdom"</em> — the 22 letters of the Hebrew alphabet plus the ten divine sefirot. The letters are not merely symbols — they are the structural forces of reality itself.</p>
+    <p>The connection to the play: if the <em>Legends of the Jews</em> tells us <em>which</em> letter was chosen, Sefer Yetzirah tells us <em>why it matters</em> — because the letters are the building material of existence. Bet was not just chosen as a first word; Bet is the vessel through which the entire structure of creation flows.</p>
+    <div class="stage-dir" style="margin-top:10px;">Key passage (1:1): "In thirty-two mysterious paths of Wisdom, God engraved and created His world — in three books: in writing, number, and word." The play is rooted in this idea: letters as living architecture.</div>
+    <p style="margin-top:10px;"><strong>The Talmudic story (Sanhedrin 65b):</strong> Rav Chanina and Rav Oshaya would study Sefer Yetzirah together every Friday afternoon — and using its secrets, would create a calf and eat it for Shabbat. This is offered not as legend but as Talmudic fact. The letters, in other words, are not metaphors. They are the actual code of reality.</p>
+  </div>
+
+  <div class="card">
+    <h2>For the Classroom: A Sefaria Source Sheet</h2>
+    <p>You can build a Sefaria Source Sheet pulling together all four primary sources for adult or advanced student use. Suggested structure:</p>
+    <ol>
+      <li><a href="https://www.sefaria.org/Bereishit_Rabbah.1.10" style="color:#2a4a7a;">Bereishit Rabbah 1:10</a> — the oldest version; why Bet?</li>
+      <li><a href="https://www.sefaria.org/Legends_of_the_Jews.1.1.9" style="color:#2a4a7a;">Legends of the Jews 1:1:9</a> — Ginzberg's full narrative retelling</li>
+      <li><a href="https://www.sefaria.org/Zohar.1.2b" style="color:#2a4a7a;">Zohar I, 2b–3b</a> — the kabbalistic expansion; God "played with the letters"</li>
+      <li><a href="https://www.sefaria.org/Sefer_Yetzirah" style="color:#2a4a7a;">Sefer Yetzirah 1:1</a> — the philosophical foundation; letters as creation's architecture</li>
+    </ol>
+    <p>Discussion question across sources: <em>Each text tells the same story but emphasizes something different. What does each source want us to understand about the relationship between God, language, and the world?</em></p>
+  </div>
+
+</div>
+</body>
+</html>

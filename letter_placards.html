@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hebrew Letter Placards — Print Ready</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #ccc;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #000;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    background: #fff;
+    margin: 0.3in auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* ── PAGE 1: LETTER FACE ── */
+  .face-page { justify-content: center; }
+
+  .circle-frame {
+    width: 7in;
+    height: 7in;
+    border: 18px solid #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .heb-letter {
+    font-size: 6.5in;
+    line-height: 1;
+    direction: rtl;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    color: #000;
+    margin-top: 0.15in;
+    display: block;
+    /* per-letter overrides applied via inline style */
+  }
+
+  /* ── PAGE 2: TEXT SIDE — two half-sheets per page ── */
+  .text-page {
+    justify-content: flex-start;
+    padding: 0;
+    position: relative;
+  }
+
+  .half-sheet {
+    width: 100%;
+    height: 5.5in;
+    padding: 0.3in 0.6in 0.25in;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+  }
+
+  .cut-line {
+    width: 100%;
+    height: 0;
+    border-top: 2px dashed #000;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .cut-line::before {
+    content: "✂  Cut here  ✂";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 0 0.15in;
+    font-size: 9pt;
+    letter-spacing: 0.08em;
+    font-family: Georgia, serif;
+  }
+
+  .copy-label {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: right;
+    margin-bottom: 0.08in;
+    opacity: 0.55;
+  }
+
+  .letter-title-block {
+    width: 100%;
+    text-align: center;
+    border-bottom: 3px solid #000;
+    padding-bottom: 0.1in;
+    margin-bottom: 0.14in;
+  }
+
+  .name-english {
+    font-size: 36pt;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  .name-hebrew {
+    font-size: 32pt;
+    direction: rtl;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-top: 0.04in;
+  }
+
+  .section-label {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.05in;
+    margin-top: 0.14in;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+  }
+
+  .plea-text {
+    font-size: 15pt;
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: 0.05in;
+  }
+
+  .verdict-block { margin-top: 0.05in; }
+
+  .verdict-line {
+    font-size: 11pt;
+    line-height: 1.5;
+    padding-left: 0.22in;
+    text-indent: -0.22in;
+  }
+
+  .verdict-line.good::before {
+    content: "✦  GOOD: ";
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  .verdict-line.problem::before {
+    content: "✗  PROBLEM: ";
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  .page-note {
+    position: absolute;
+    bottom: 0.12in;
+    right: 0.4in;
+    font-size: 7.5pt;
+    color: #555;
+  }
+
+  @media print {
+    body { background: none; }
+    .page { margin: 0; box-shadow: none; width: 8.5in; height: 11in; }
+    .page-note { color: #000; }
+  }
+</style>
+</head>
+<body>
+<script>
+/*
+  letterStyle — inline CSS string applied to the .heb-letter span on page 1.
+  Tuning guide:
+    font-size   : scale from the 6.5in base (narrow glyphs need bigger, wide need smaller)
+    margin-top  : positive = nudge down, negative = nudge up (centres glyph in circle)
+    transform   : scaleX(n) widens a naturally narrow glyph horizontally
+                  scaleY(n) can compress a very tall glyph
+*/
+const letters = [
+  // ── WIDE / BALANCED glyphs — base size fits well ──
+  {
+    en:"Alef",  heb:"א", order:1,
+    letterStyle:"font-size:6.2in; margin-top:0.2in;",
+    // Alef is broad and well-balanced — slight reduction keeps it from clipping corners
+    plea:"(I..I didn't ask for anything, Holy One. I just want to be useful. If You think I can be of service, please choose me. If not, I'll understand.)",
+    good:"Alef begins Anochi — \"I am the Lord your God\" — the first word of the Ten Commandments at Sinai.",
+    problem:"Alef made no argument. It was humble, and waited. And God remembered."
+  },
+  {
+    en:"Bet",   heb:"ב", order:2,
+    letterStyle:"font-size:6.3in; margin-top:0.25in;",
+    plea:"\"O Lord of the world, blessed are You.  You see?  I just said it!  Every single day, in every blessing, people on Earth open their mouths to praise You. May it be Thy will to create the world through me, seeing that all the dwellers in the world give praise daily unto Thee through me — Baruch, Blessed be the Lord forever. Amen and Amen!\"",
+    good:"Begins Baruch — Blessed. Every blessing ever spoken begins with Bet. Also begins Bereshit — \"In the beginning.\"",
+    problem:"None that outweighs its gift. God chose Bet."
+  },
+  {
+    en:"Gimel", heb:"ג", order:3,
+    letterStyle:"font-size:6.3in; margin-top:0.2in;",
+    plea:"\"O Lord — I begin Gadol, Great! You are called the Great God, El Gadol v'Nora. Surely the world should begin with greatness!\"",
+    good:"Begins Gadol — Great. God is called great throughout the Torah.",
+    problem:"Also begins Gemul — retribution and punishment. Greatness without mercy leads only to judgment."
+  },
+  {
+    en:"Dalet", heb:"ד", order:4,
+    letterStyle:"font-size:6.3in; margin-top:0.2in;",
+    plea:"\"O Lord — I begin Davar, the Divine Word itself! The world was created through speech — and I begin the very idea of Your word!\"",
+    good:"Begins Davar — the Divine Word. The world was made through God's speech.",
+    problem:"Also begins Din — strict justice. Under the rule of law without love, the world would have fallen to ruin."
+  },
+  // ── NARROW glyphs — scale up + widen ──
+  {
+    en:"Heh",   heb:"ה", order:5,
+    letterStyle:"font-size:6.4in; margin-top:0.15in;",
+    plea:"\"Together with Vav, we compose the Ineffable Name of God. How could anything be more fitting than beginning creation with Your most sacred Name?\"",
+    good:"Heh and Vav together spell the most holy and unspoken Name of God.",
+    problem:"Too exalted and sacred to be pressed into the service of the ordinary world. God said: step aside, and I will protect your Name always."
+  },
+  {
+    en:"Vav",   heb:"ו", order:6,
+    // Vav is a very thin vertical stroke — scale up and stretch wide
+    letterStyle:"font-size:6.5in; transform:scaleX(1); margin-top:0.1in;",
+    plea:"\"Together with Heh, we compose the Ineffable Name of God. How could anything be more fitting than beginning creation with Your most sacred Name?\"",
+    good:"Vav and Heh together form the most holy Name of God.",
+    problem:"Too sacred to be used for ordinary creation. God honors Vav by protecting its Name throughout all generations."
+  },
+  {
+    en:"Zayin", heb:"ז", order:7,
+    // Zayin is narrow — widen moderately
+    letterStyle:"font-size:6.5in; transform:scaleX(1); margin-top:0.1in;",
+    plea:"\"O Lord — I begin Zakor, remembrance! To remember is one of the most important commandments in all of Torah. Begin the world with memory!\"",
+    good:"Begins Zakor — Remembrance. Zachor is one of the most repeated commandments in all of Torah.",
+    problem:"Zayin itself means weapon — a sword, a doer of mischief. God will not begin creation with an instrument of harm."
+  },
+  {
+    en:"Chet",  heb:"ח", order:8,
+    letterStyle:"font-size:6.3in; margin-top:0.15in;",
+    plea:"\"O Lord — I begin Chanun, the Gracious One! You are gracious to all Your creatures. Let graciousness be the very first word of the world!\"",
+    good:"Begins Chanun — the Gracious One. One of God's most beloved names and attributes.",
+    problem:"Also begins Chattat — sin. Grace and sin cannot share the same opening letter at the dawn of creation."
+  },
+  {
+    en:"Tet",   heb:"ט", order:9,
+    letterStyle:"font-size:6.2in; margin-top:0.2in;",
+    plea:"\"O Lord — I am the letter of Tov, goodness! On the third day of creation You said 'it is good' — twice! That double goodness belongs to me!\"",
+    good:"Begins Tov — goodness. God used this word twice on the third day of creation.",
+    problem:"The truly good belongs to the World to Come, not this world. That day has not yet come. Wait, dear Tet."
+  },
+  {
+    en:"Yod",   heb:"י", order:10,
+    // Yod is the smallest letter — scale up significantly and widen
+    letterStyle:"font-size:6.5in; transform:scaleX(2) scaleY(2); margin-top:0.3in;",
+    plea:"\"O Lord — I begin Yah, one of Your most sacred names! The shortest, purest, most intimate name of God — surely that makes me worthy!\"",
+    good:"Begins Yah — the most intimate sacred name of God.",
+    problem:"Also begins Yetzer ha-Ra — the evil inclination in every human heart. God cannot begin creation with the seed of all wrongdoing."
+  },
+  {
+    en:"Kaf",   heb:"כ", order:11,
+    letterStyle:"font-size:6.3in; margin-top:0.2in;",
+    plea:"\"O Lord — Kisseh, Your Throne! Kavod, Your Glory! Keter, Your Crown! Three of Your greatest attributes all begin with me — three reasons I should be chosen!\"",
+    good:"Begins Kisseh (Throne), Kavod (Glory), and Keter (Crown) — three of God's most exalted attributes.",
+    problem:"God said: One day I will clap My hands — Kaf — in grief over the misfortunes of Israel. I cannot begin with a letter of future mourning. (Ezekiel 21:19)"
+  },
+  {
+    en:"Lamed", heb:"ל", order:12,
+    // Lamed is tall with an ascending stroke — scale down slightly to keep it in circle
+    letterStyle:"font-size:5.8in; margin-top:-0.1in;",
+    plea:"\"O Lord — I begin Luchot, the heavenly Tablets of the Ten Commandments! Your greatest gift to Israel — engraved by Your own hand!\"",
+    good:"Begins Luchot — the celestial Tablets of the Ten Commandments, engraved by the hand of God.",
+    problem:"Moses shattered those very Tablets in anger. What begins with breaking cannot begin creation."
+  },
+  {
+    en:"Mem",   heb:"מ", order:13,
+    letterStyle:"font-size:6.0in; margin-top:0.25in;",
+    plea:"\"O Lord — I begin Melech, King! You are the King of Kings! Surely the world should begin with the letter of the King!\"",
+    good:"Begins Melech — King. One of God's most powerful and universal titles.",
+    problem:"Also begins Mehumah — confusion and chaos. A king's world cannot begin in disorder."
+  },
+  {
+    en:"Nun",   heb:"נ", order:14,
+    letterStyle:"font-size:7.0in; transform:scaleX(1.0); margin-top:0.2in;",
+    plea:"\"O Lord — Ner Adonai nishmat adam — the lamp of God is the soul of a person! Let the world begin with the divine spark inside every human being!\"",
+    good:"Begins Ner Adonai — the lamp of God, which is the spirit of a person (Proverbs 20:27).",
+    problem:"The same verse continues: the lamp of the wicked will be put out. Nun also begins Nefilah — the fall. The very soul contains the shadow of its own extinction."
+  },
+  {
+    en:"Samech",heb:"ס", order:15,
+    letterStyle:"font-size:6.0in; margin-top:0.2in;",
+    // Samech is a closed circle — fits the circular frame beautifully
+    plea:"\"O Lord — You Yourself are called the Somech noflim, the Upholder of all who fall! I begin Your own title of compassion!\"",
+    good:"Begins Somech noflim — the Upholder of all who fall. One of God's most comforting names.",
+    problem:"God said: You are needed exactly where you are — inside the alphabet, upholding all the other letters. Samech, stay."
+  },
+  {
+    en:"Ayin",  heb:"ע", order:16,
+    letterStyle:"font-size:6.1in; margin-top:0.25in;",
+    plea:"\"O Lord — I begin Anavah, humility! What virtue is more beloved in Your sight than humility? Begin creation humbly!\"",
+    good:"Begins Anavah — humility, one of the most praised virtues in all of Torah and rabbinic teaching.",
+    problem:"Also begins Ervah — immodesty and disgrace. The same faculty of self-awareness enables both virtue and shame."
+  },
+  {
+    en:"Peh",   heb:"פ", order:17,
+    letterStyle:"font-size:6.2in; margin-top:0.2in;",
+    plea:"\"O Lord — I begin Podeh, the Redeemer! You are the One who saves and liberates! Let the world begin with the promise of redemption!\"",
+    good:"Begins Podeh — Redeemer. God is the ultimate liberator of the captive and the oppressed.",
+    problem:"Also begins Pesha — transgression and sin. Redemption cannot precede creation; there must first be something that needs redeeming."
+  },
+  {
+    en:"Tzadi", heb:"צ", order:18,
+    letterStyle:"font-size:5.9in; margin-top:0.1in;",
+    plea:"\"O Lord — I begin Tzaddik, the Righteous One! You are called righteous and upright. Surely the world should begin with righteousness!\"",
+    good:"Begins Tzaddik — the Righteous One, one of God's most celebrated attributes.",
+    problem:"Also begins Tzarot — troubles, sufferings, and misfortunes. The world cannot begin with the seed of sorrow."
+  },
+  {
+    en:"Kuf",   heb:"ק", order:19,
+    // Kuf has a descending stroke — nudge up to keep it centered
+    letterStyle:"font-size:5.9in; margin-top:-0.15in;",
+    plea:"\"O Lord — I begin Kadosh, Holy! You are the Holy One of Israel — Kadosh, Kadosh, Kadosh! Begin with holiness!\"",
+    good:"Begins Kadosh — Holy. The angels themselves cry this word three times before the Throne of God.",
+    problem:"Also begins Kelalah — a curse. Holiness and curse cannot share the same opening letter at the foundation of the world."
+  },
+  {
+    en:"Resh",  heb:"ר", order:20,
+    letterStyle:"font-size:6.2in; margin-top:0.15in;",
+    plea:"\"O Lord — I begin Rachum, the Merciful One! Your very name of compassion begins with me. Begin the world with mercy!\"",
+    good:"Begins Rachum — the Merciful One. One of the Thirteen Attributes of God recited on every holy day.",
+    problem:"Also begins Ra — wicked, and Rasha — evil. After that, even the distinction of beginning God's name of mercy counted for nothing."
+  },
+  {
+    en:"Shin",  heb:"ש", order:21,
+    // Shin is very wide — reduce size to keep arms inside circle
+    letterStyle:"font-size:5.6in; margin-top:0.3in;",
+    plea:"\"O Lord — Your own name Shaddai begins with me! El Shaddai — God Almighty — the name You revealed to Abraham, Isaac, and Jacob!\"",
+    good:"Begins Shaddai — God Almighty. The name God used when making the covenant with the patriarchs.",
+    problem:"Also begins Sheker — falsehood. The world cannot begin with the letter of lies, no matter how great its other word may be."
+  },
+  {
+    en:"Tav",   heb:"ת", order:22,
+    letterStyle:"font-size:6.0in; margin-top:0.2in;",
+    plea:"\"O Lord — it is through me that You will give the Torah to Israel by the hand of Moses, for Torah ends with me! What better way to begin the world than with the letter that seals Your greatest gift?\"",
+    good:"Torah — the greatest gift to Israel — ends with Tav. Moses commanded us the Torah.",
+    problem:"God said: In days to come I shall place you as a sign of death upon the foreheads of men. I cannot begin the world with the letter of death. (Ezekiel 9:4)"
+  }
+];
+
+letters.sort((a,b) => a.order - b.order);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  letters.forEach((l, i) => {
+
+    // ── PAGE 1: FACE ──
+    const face = document.createElement('div');
+    face.className = 'page face-page';
+    face.innerHTML = `
+      <div class="circle-frame">
+        <span class="heb-letter" style="${l.letterStyle}">${l.heb}</span>
+      </div>
+      <div class="page-note">${l.en} · Placard Face</div>
+    `;
+    body.appendChild(face);
+
+    // ── PAGE 2: TEXT — two half-sheets ──
+    const halfHTML = (label) => `
+      <div class="half-sheet">
+        <div class="copy-label">${label}</div>
+        <div class="letter-title-block">
+          <div class="name-english">${l.en}</div>
+          <div class="name-hebrew">${l.heb}</div>
+        </div>
+        <div class="section-label">The Plea to God</div>
+        <div class="plea-text">${l.plea}</div>
+        <div class="section-label">God's Consideration</div>
+        <div class="verdict-block">
+          <div class="verdict-line good">${l.good}</div>
+          <div class="verdict-line problem" style="margin-top:0.08in;">${l.problem}</div>
+        </div>
+        <div class="page-note">${l.en} · ${label}</div>
+      </div>`;
+
+    const text = document.createElement('div');
+    text.className = 'page text-page';
+    text.innerHTML =
+      halfHTML('Glue to back of placard') +
+      '<div class="cut-line"></div>' +
+      halfHTML('Take home for practice');
+    body.appendChild(text);
+  });
+});
+</script>
+</body>
+</html>
