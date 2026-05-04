@@ -30,8 +30,9 @@ the *Zohar*, and *Bereishit Rabbah*.
 | `artwork.png` | Cover artwork — supply separately to printer |
 | `program.pdf` | Print-ready booklet PDF |
 
----
+## Web Page
 
+-**Here is the link to the web page:** https://cmannaberg.github.io/hebrew-school/alphabet_play.html
 ## Source Texts
 - Legends of the Jews 1:1:9 — sefaria.org/Legends_of_the_Jews.1.1.9
 - Zohar I, 2b–3b — sefaria.org/Zohar.1.2b
