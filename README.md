@@ -1,7 +1,7 @@
 # The Letters Ask to Begin the World
 ### הָאוֹתִיּוֹת מְבַקְּשׁוֹת לִבְרֹא אֶת הָעוֹלָם
 
-A children's play performed at the Okun Kalamazoo Combined Jewish School
+A children's play performed at the Okun Kalamazoo Community Jewish School
 End of School Celebration — May 17, 2026
 
 Based on the ancient midrash of the Hebrew letters petitioning HaShem
@@ -11,7 +11,7 @@ the *Zohar*, and *Bereishit Rabbah*.
 ---
 
 ## Credits
-- **Written & Narrated by:** Cary Mannaberg
+- **Written by:** Cary Mannaberg
 - **Director:** Angie Saltzman
 - **Rabbis:** Rabbi Simone Schicker · Rabbi Shelley Goldman
 - **Artwork:** Shelley Parkhurst and Kerry Sims
@@ -23,20 +23,12 @@ the *Zohar*, and *Bereishit Rabbah*.
 | File | Description |
 |------|-------------|
 | `alphabet_play.html` | Full play script |
-| `alphabet_story.html` | Story version of the same midrash |
 | `play_program.html` | 4-panel booklet program — print landscape, duplex, flip short edge, fold |
-| `play_poster.html` | 24×36 poster — artwork.png as full background, text overlaid |
-| `poster_text.txt` | Plain text of poster content for graphic artist |
-| `letter_placards.html` | Full letter placards with plea, verdict, and actor copy |
-| `letter_placards_2up.html` | 22 letter circles, 2 per landscape sheet, ready to print |
-| `letter_placards_form.html` | Enter cast member names and print placards |
+| `play_poster.html` | 18×24 poster — references artwork.png separately |
+| `letter_placards.html` | Letter signs for each of the 22 Hebrew letter characters |
+| `alphabet_story.html` | Story version of the same midrash |
 | `artwork.png` | Cover artwork — supply separately to printer |
 | `program.pdf` | Print-ready booklet PDF |
-
----
-
-## Web Page
-- **Play script:** https://cmannaberg.github.io/hebrew-school/alphabet_play.html
 
 ---
 
