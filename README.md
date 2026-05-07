@@ -23,16 +23,23 @@ the *Zohar*, and *Bereishit Rabbah*.
 | File | Description |
 |------|-------------|
 | `alphabet_play.html` | Full play script |
-| `play_program.html` | 4-panel booklet program — print landscape, duplex, flip short edge, fold |
-| `play_poster.html` | 18×24 poster — references artwork.png separately |
-| `letter_placards.html` | Letter signs for each of the 22 Hebrew letter characters |
 | `alphabet_story.html` | Story version of the same midrash |
+| `play_program.html` | 4-panel booklet program — print landscape, duplex, flip short edge, fold |
+| `play_poster.html` | 24×36 poster — artwork.png as full background, text overlaid |
+| `poster_text.txt` | Plain text of poster content for graphic artist |
+| `letter_placards.html` | Full letter placards with plea, verdict, and actor copy |
+| `letter_placards_2up.html` | 22 letter circles, 2 per landscape sheet, ready to print |
+| `letter_placards_form.html` | Enter cast member names and print placards |
 | `artwork.png` | Cover artwork — supply separately to printer |
 | `program.pdf` | Print-ready booklet PDF |
 
-## Web Page
+---
 
--**Here is the link to the web page:** https://cmannaberg.github.io/hebrew-school/alphabet_play.html
+## Web Page
+- **Play script:** https://cmannaberg.github.io/hebrew-school/alphabet_play.html
+
+---
+
 ## Source Texts
 - Legends of the Jews 1:1:9 — sefaria.org/Legends_of_the_Jews.1.1.9
 - Zohar I, 2b–3b — sefaria.org/Zohar.1.2b
