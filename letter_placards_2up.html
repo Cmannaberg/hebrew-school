@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hebrew Letter Placards — 2 per Sheet</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #ccc;
+}
+
+/* one landscape sheet per pair */
+.sheet {
+  width: 11in;
+  height: 8.5in;
+  background: #fff;
+  margin: 0.3in auto;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+}
+
+/* vertical center fold/cut line */
+.center-line {
+  position: absolute;
+  left: 50%;
+  top: 0.25in;
+  bottom: 0.25in;
+  width: 0;
+  border-left: 1px solid #000;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* each half of the sheet */
+.panel {
+  width: 5.5in;
+  height: 8.5in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18in;
+}
+
+/* circle — scaled from 7in original to 4.8in */
+.circle-frame {
+  width: 4.8in;
+  height: 4.8in;
+  border: 12px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.heb-letter {
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
+  line-height: 1;
+  direction: rtl;
+  display: block;
+}
+
+.letter-name {
+  font-size: 20pt;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+@media print {
+  @page { size: 11in 8.5in; margin: 0; }
+  body { background: none; }
+  .sheet { margin: 0; }
+  .sheet:last-child { page-break-after: avoid; break-after: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<script>
+/*
+  Letter styles scaled from original (7in circle) to 2-up (4.8in circle).
+  Scale factor ≈ 0.69 applied to font-size and margin-top.
+  Transforms (scaleX/scaleY) are kept as-is.
+*/
+const letters = [
+  { en:"Alef",   heb:"א", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Bet",    heb:"ב", style:"font-size:4.3in; margin-top:0.17in;" },
+  { en:"Gimel",  heb:"ג", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Dalet",  heb:"ד", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Heh",    heb:"ה", style:"font-size:4.4in; margin-top:0.1in;" },
+  { en:"Vav",    heb:"ו", style:"font-size:4.5in; transform:scaleX(1); margin-top:0.07in;" },
+  { en:"Zayin",  heb:"ז", style:"font-size:4.5in; transform:scaleX(1); margin-top:0.07in;" },
+  { en:"Chet",   heb:"ח", style:"font-size:4.3in; margin-top:0.1in;" },
+  { en:"Tet",    heb:"ט", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Yod",    heb:"י", style:"font-size:2.7in; transform:scaleX(2) scaleY(2); margin-top:0.13in;" },
+  { en:"Kaf",    heb:"כ", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Lamed",  heb:"ל", style:"font-size:4.0in; margin-top:-0.07in;" },
+  { en:"Mem",    heb:"מ", style:"font-size:4.1in; margin-top:0.17in;" },
+  { en:"Nun",    heb:"נ", style:"font-size:4.8in; margin-top:0.14in;" },
+  { en:"Samech", heb:"ס", style:"font-size:4.1in; margin-top:0.14in;" },
+  { en:"Ayin",   heb:"ע", style:"font-size:4.2in; margin-top:0.17in;" },
+  { en:"Peh",    heb:"פ", style:"font-size:4.3in; margin-top:0.14in;" },
+  { en:"Tzadi",  heb:"צ", style:"font-size:4.1in; margin-top:0.07in;" },
+  { en:"Kuf",    heb:"ק", style:"font-size:4.1in; margin-top:-0.1in;" },
+  { en:"Resh",   heb:"ר", style:"font-size:4.3in; margin-top:0.1in;" },
+  { en:"Shin",   heb:"ש", style:"font-size:3.9in; margin-top:0.21in;" },
+  { en:"Tav",    heb:"ת", style:"font-size:4.1in; margin-top:0.14in;" },
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < letters.length; i += 2) {
+    const sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    sheet.innerHTML = '<div class="center-line"></div>';
+
+    [letters[i], letters[i + 1]].forEach(l => {
+      if (!l) return;
+      const panel = document.createElement('div');
+      panel.className = 'panel';
+      panel.innerHTML = `
+        <div class="circle-frame">
+          <span class="heb-letter" style="${l.style}">${l.heb}</span>
+        </div>
+        <div class="letter-name">${l.en}</div>`;
+      sheet.appendChild(panel);
+    });
+
+    document.body.appendChild(sheet);
+  }
+});
+</script>
+</body>
+</html>

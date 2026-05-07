@@ -5,81 +5,88 @@
 <title>The Letters Ask to Begin the World — Poster</title>
 <style>
 /*
-  POSTER — 18 × 24 inches  (standard theatrical poster)
+  POSTER — 24 × 36 inches
   ──────────────────────────────────────────────────────
-  artwork.png is referenced as a relative path below.
-  Supply artwork.png separately to your printer/designer.
-  To resize: change the two @page and .poster dimensions together.
+  artwork.png is the background image (supply separately to printer).
+  Text is overlaid at the bottom with a gradient for readability.
 */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: Georgia, 'Times New Roman', serif;
-  background: #555;
+  background: #333;
 }
 
 .poster {
-  width: 18in;
-  height: 24in;
-  display: flex;
-  flex-direction: column;
+  width: 24in;
+  height: 36in;
+  position: relative;
   overflow: hidden;
   background: #1a0f2e;
 }
 
-/* ── ART AREA — top 58% ── */
-.art-area {
-  flex: 0 0 13.92in;
-  position: relative;
-  overflow: hidden;
-  background: #1a5f7a;
-}
-
-.art-area img {
+/* ── BACKGROUND IMAGE ── */
+.bg-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center top;
   display: block;
 }
 
-.art-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
+.bg-placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.25in;
-  color: rgba(255,255,255,0.35);
-  font-size: 22pt;
+  gap: 0.3in;
+  color: rgba(255,255,255,0.25);
+  font-size: 28pt;
   font-style: italic;
   text-align: center;
+  background: #1a5f7a;
 }
-.art-placeholder .ph-heb {
-  font-size: 64pt;
+.bg-placeholder .ph-heb {
+  font-size: 80pt;
   direction: rtl;
   letter-spacing: 0.15em;
-  color: rgba(201,146,42,0.25);
+  color: rgba(201,146,42,0.2);
 }
 
-/* ── TEXT AREA — bottom 42% ── */
+/* ── GRADIENT OVERLAY — bottom third ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(26, 15, 46, 0.55) 60%,
+    rgba(26, 15, 46, 0.88) 75%,
+    rgba(26, 15, 46, 0.97) 100%
+  );
+}
+
+/* ── TEXT — pinned to bottom ── */
 .text-area {
-  flex: 1;
-  background: #1a0f2e;
-  border-top: 8px solid #c9922a;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.6in 1.2in 0.8in;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 0.45in 1in 0.5in;
-  gap: 0.18in;
+  gap: 0.2in;
 }
 
 .heb-title {
-  font-size: 38pt;
+  font-size: 44pt;
   color: #c9922a;
   direction: rtl;
   letter-spacing: 0.1em;
@@ -87,42 +94,42 @@ body {
 }
 
 .eng-title {
-  font-size: 68pt;
+  font-size: 88pt;
   font-weight: bold;
   color: #f5ead8;
-  line-height: 1.08;
+  line-height: 1.05;
   letter-spacing: 0.01em;
 }
 
 .subtitle {
-  font-size: 22pt;
+  font-size: 28pt;
   font-style: italic;
   color: #c9922a;
   letter-spacing: 0.1em;
 }
 
 .divider {
-  width: 5in;
+  width: 6in;
   border: none;
-  border-top: 1.5px solid rgba(201,146,42,0.45);
+  border-top: 1.5px solid rgba(201,146,42,0.5);
   margin: 0.05in 0;
 }
 
 .school {
-  font-size: 19pt;
+  font-size: 24pt;
   color: #f5ead8;
   letter-spacing: 0.06em;
 }
 
 .date {
-  font-size: 17pt;
-  color: rgba(245,234,216,0.65);
+  font-size: 20pt;
+  color: rgba(245,234,216,0.7);
   font-style: italic;
   letter-spacing: 0.05em;
 }
 
 @media print {
-  @page { size: 18in 24in; margin: 0; }
+  @page { size: 24in 36in; margin: 0; }
   body  { background: none; }
 }
 </style>
@@ -131,21 +138,19 @@ body {
 
 <div class="poster">
 
-  <!-- ── ARTWORK ─────────────────────────────────────────
-       Supply artwork.png to your printer separately.
-       When the file is in the same folder, it previews here.
-  ──────────────────────────────────────────────────────── -->
-  <div class="art-area">
-    <img src="artwork.png" alt="Artwork — The Letters Ask to Begin the World"
-         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="art-placeholder" style="display:none;">
-      <div class="ph-heb">א ב ג ד ה</div>
-      <div>artwork.png</div>
-      <div class="ph-heb">כ ל מ נ ס</div>
-    </div>
+  <!-- BACKGROUND IMAGE — supply artwork.png separately to printer -->
+  <img class="bg-img" src="artwork.png" alt="Artwork — The Letters Ask to Begin the World"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+  <div class="bg-placeholder">
+    <div class="ph-heb">א ב ג ד ה</div>
+    <div>artwork.png</div>
+    <div class="ph-heb">כ ל מ נ ס</div>
   </div>
 
-  <!-- ── TEXT ────────────────────────────────────────── -->
+  <!-- GRADIENT OVERLAY -->
+  <div class="overlay"></div>
+
+  <!-- TEXT ON TOP -->
   <div class="text-area">
     <div class="heb-title">הָאוֹתִיּוֹת מְבַקְּשׁוֹת לִבְרֹא אֶת הָעוֹלָם</div>
     <div class="eng-title">The Letters Ask to<br>Begin the World</div>
